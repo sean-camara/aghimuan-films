@@ -1,113 +1,114 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+// src/pages/Project/ProjectItem.jsx
+import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
-const ProjectItem = () => {
-  const { id } = useParams();
-
-  // This would typically come from an API or data source
-  const projectDetails = {
-    id: id,
-    name: "Night Club",
-    description:
-      "A vibrant nightclub photography session capturing the energy and atmosphere of the venue.",
-    date: "June 15, 2023",
-    client: "Pulse Nightclub",
-    category: "Events",
-    images: [
-      "/hero-bg3.jpg",
-      "/hero-bg2.jpg",
-      "/hero-bg.png",
-      "/hero-bg3.jpg",
-      "/hero-bg2.jpg",
-    ],
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Hero Section */}
-      <section className="relative w-full h-[60vh] overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={projectDetails.images[0]}
-            alt={projectDetails.name}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/50 z-10"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-20 flex flex-col h-full justify-center items-center text-center text-white">
-          <h1
-            className="text-4xl md:text-6xl font-bold mb-4"
-            style={{ fontFamily: "Cormorant Garamond, serif" }}
-          >
-            {projectDetails.name}
-          </h1>
-          <p className="text-xl max-w-2xl px-4">{projectDetails.description}</p>
-        </div>
-      </section>
-
-      {/* Project Details */}
-      <section className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h2 className="text-2xl font-semibold mb-6 text-white">
-                Project Details
-              </h2>
-              <div className="space-y-4">
-                <div className="flex">
-                  <span className="text-[#D56E2D] w-24">Client:</span>
-                  <span className="text-white">{projectDetails.client}</span>
-                </div>
-                <div className="flex">
-                  <span className="text-[#D56E2D] w-24">Date:</span>
-                  <span className="text-white">{projectDetails.date}</span>
-                </div>
-                <div className="flex">
-                  <span className="text-[#D56E2D] w-24">Category:</span>
-                  <span className="text-white">{projectDetails.category}</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h2 className="text-2xl font-semibold mb-6 text-white">
-                Project Overview
-              </h2>
-              <p className="text-gray-300">
-                This project involved capturing the vibrant atmosphere of a
-                popular nightclub. The goal was to showcase the energy,
-                lighting, and crowd engagement to help promote future events.
-                The shoot included candid shots of patrons enjoying themselves,
-                DJ performances, and the unique lighting and decor of the venue.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Project Gallery */}
-      <section className="py-12 px-4 bg-black">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold mb-8 text-white text-center">
-            Project Gallery
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {projectDetails.images.map((image, index) => (
-              <div key={index} className="overflow-hidden rounded-lg">
-                <img
-                  src={image}
-                  alt={`Project image ${index + 1}`}
-                  className="w-full h-64 object-cover hover:scale-110 transition-transform duration-500"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
-  );
+const data = {
+  "Night Club": [
+    "/club1.jpg",
+    "/club2.jpg",
+    "/club3.jpg",
+    "/club4.jpg",
+    "/club5.jpg",
+  ],
+  Wedding: [
+    "/wedding.jpg",
+    "/wedding2.jpg",
+    "/wedding3.jpg",
+    "/wedding4.jpg",
+    "/wedding5.jpg",
+  ],
+  Event: [
+    "/event.jpg",
+    "/event1.jpg",
+    "/event2.jpg",
+    "/event3.jpg",
+    "/event4.jpg",
+  ],
+  Films: ["/club1.jpg", "/club2.jpg", "/club3.jpg", "/club4.jpg", "/club5.jpg"],
+  Reels: ["/club1.jpg", "/club2.jpg", "/club3.jpg", "/club4.jpg", "/club5.jpg"],
+  Birthday: [
+    "/club1.jpg",
+    "/club2.jpg",
+    "/club3.jpg",
+    "/club4.jpg",
+    "/club5.jpg",
+  ],
 };
 
-export default ProjectItem;
+export default function ProjectItem() {
+  const { category } = useParams();
+  const images = data[category] || data["Night Club"];
+  const [index, setIndex] = useState(0);
+
+  const next = () => setIndex((i) => (i + 1) % images.length);
+  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
+
+  return (
+    <div className="w-full h-screen relative overflow-hidden">
+      <AnimatePresence>
+        <motion.img
+          key={images[index]}
+          src={images[index]}
+          alt={`${category} ${index + 1}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+        />
+      </AnimatePresence>
+
+      <div className="absolute inset-0 bg-black/50" />
+
+      <div className="absolute inset-0 flex flex-col justify-center items-center text-white px-4">
+        <h1
+          className="text-5xl font-bold mb-2"
+          style={{ fontFamily: "Cormorant Garamond" }}
+        >
+          My Projects
+        </h1>
+        <h2 className="text-3xl" style={{ fontFamily: "Cormorant Garamond" }}>
+          {category}
+        </h2>
+        <Link to="/project" className="mt-4 text-sm underline">
+          ← Back to Projects
+        </Link>
+      </div>
+
+      {/* Thumbnails */}
+      <div className="absolute bottom-4 w-full flex justify-center space-x-4 overflow-x-auto px-4">
+        {images.map((img, i) => (
+          <div
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`relative flex-shrink-0 w-24 h-16 border-2 rounded-lg overflow-hidden cursor-pointer ${
+              index === i ? "border-white" : "border-white/50"
+            }`}
+          >
+            <img
+              src={img}
+              alt={`${category} thumb ${i + 1}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40" />
+          </div>
+        ))}
+      </div>
+
+      {/* Prev / Next buttons (desktop only) */}
+      <button
+        onClick={prev}
+        className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 p-2 rounded-full"
+      >
+        ‹
+      </button>
+      <button
+        onClick={next}
+        className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 p-2 rounded-full"
+      >
+        ›
+      </button>
+    </div>
+  );
+}
