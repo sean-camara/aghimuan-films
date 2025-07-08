@@ -1,39 +1,115 @@
 import React from "react";
+import { motion } from "framer-motion";
+import {
+  PencilIcon,
+  Squares2X2Icon,
+  CameraIcon,
+  VideoCameraIcon,
+  StarIcon,
+} from "@heroicons/react/24/outline";
+
+const skills = [
+  { name: "Scriptwriting", icon: PencilIcon },
+  { name: "Directing", icon: VideoCameraIcon },
+  { name: "Photography", icon: CameraIcon },
+  { name: "Editing", icon: Squares2X2Icon },
+  { name: "Storyboarding", icon: StarIcon },
+  { name: "Color Grading", icon: StarIcon },
+];
 
 const About = () => {
+  console.log("✅ Rendering About");
+
   return (
-    <section id="about-section" className="py-12 px-4 bg-gray-900 w-full">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold mb-6 text-white">About Us</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <section id="about" className="bg-gray-100 py-12 px-4">
+      <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-8">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h2
+            className="text-2xl md:text-3xl"
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 600,
+              color: "#D56E2D",
+            }}
+          >
+            About Me
+          </h2>
+          <h3
+            className="mt-2 text-3xl md:text-4xl"
+            style={{
+              fontFamily: "'Cormorant Garamond', serif",
+              fontWeight: 700,
+              color: "#373131",
+            }}
+          >
+            Shawn James N. Camara
+          </h3>
+        </div>
+
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+          {/* Left: Image */}
           <div>
-            <p className="text-lg text-gray-300 mb-4">
-              We are a creative team dedicated to capturing your special moments
-              and bringing your vision to life. With years of experience in the
-              film and photography industry, we pride ourselves on delivering
-              high-quality content that exceeds expectations.
-            </p>
-            <p className="text-lg text-gray-300">
-              At Aghimuan Films, we believe that every project tells a unique
-              story. Our passion is to help you tell that story through
-              compelling visuals and innovative techniques.
-            </p>
+            <img
+              src="/about-image.png"
+              alt="Shawn James"
+              className="w-full h-auto rounded-lg border border-gray-400"
+              onError={() => console.log("❌ Image not found!")}
+            />
           </div>
-          <div className="bg-black p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4 text-white">
-              Our Mission
-            </h3>
-            <p className="text-gray-300 mb-4">
-              To create stunning visual content that captures the essence of
-              your brand, event, or personal story.
+
+          {/* Right: Description + Skills */}
+          <div className="space-y-6">
+            <p
+              className="text-base md:text-lg leading-relaxed"
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                color: "#373131",
+              }}
+            >
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry’s standard.
             </p>
-            <h3 className="text-xl font-semibold mb-4 text-white">
-              Our Vision
-            </h3>
-            <p className="text-gray-300">
-              To be the leading creative film and photography studio, known for
-              exceptional quality and innovative storytelling.
-            </p>
+
+            {/* Skills */}
+            <div>
+              <h4
+                className="mb-4 text-xl md:text-2xl"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 600,
+                  color: "#D56E2D",
+                }}
+              >
+                Skills
+              </h4>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {skills.map(({ name, icon: Icon }, index) => (
+                  <motion.div
+                    key={name}
+                    className="flex sm:justify-start justify-center items-center gap-2 px-4 py-2 rounded transition-transform duration-300 hover:scale-105 hover:shadow-md"
+                    style={{ backgroundColor: "#FFF6ED" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1, duration: 0.4 }}
+                    viewport={{ once: true }}
+                  >
+                    <Icon className="w-5 h-5" style={{ color: "#D56E2D" }} />
+                    <span
+                      className="text-sm md:text-base"
+                      style={{
+                        fontFamily: "'Poppins', sans-serif",
+                        color: "#D56E2D",
+                      }}
+                    >
+                      {name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,3 +1,5 @@
+// src/App.jsx
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar.jsx";
 import Footer from "./components/layout/Footer.jsx";
@@ -6,7 +8,7 @@ import Project from "./pages/Project/Project.jsx";
 import ProjectItem from "./pages/Project/ProjectItem.jsx";
 
 function App() {
-  console.log("App component rendering");
+  console.log("🟢 App component rendering");
   return (
     <Router>
       <Navbar />

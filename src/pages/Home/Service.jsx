@@ -1,56 +1,97 @@
+// src/pages/Home/Service.jsx
 import React from "react";
+import { motion } from "framer-motion";
 
-const Service = () => {
-  const services = [
-    {
-      title: "Wedding Videography",
-      description:
-        "Capture your special day with cinematic storytelling that highlights the emotions and moments you'll cherish forever.",
-      icon: "📹",
-    },
-    {
-      title: "Commercial Production",
-      description:
-        "Professional video content for your business that communicates your brand message effectively to your target audience.",
-      icon: "🎬",
-    },
-    {
-      title: "Documentary Filming",
-      description:
-        "Tell compelling stories through documentary-style filming with a focus on authenticity and narrative depth.",
-      icon: "🎥",
-    },
-    {
-      title: "Photography Sessions",
-      description:
-        "High-quality photography services for portraits, events, products, and more with attention to detail and artistic vision.",
-      icon: "📸",
-    },
-  ];
+const services = [
+  {
+    title: "Night Club Photography",
+    description: "Lorem Ipsum is simply dummy text.",
+    icon: "📸",
+  },
+  {
+    title: "Birthday Photography",
+    description: "Lorem Ipsum is simply dummy text.",
+    icon: "🎂",
+  },
+  {
+    title: "Event",
+    description: "Lorem Ipsum is simply dummy text.",
+    icon: "🎉",
+  },
+  {
+    title: "Reels/Promotion",
+    description: "Lorem Ipsum is simply dummy text.",
+    icon: "🎬",
+  },
+];
 
-  return (
-    <section id="service-section" className="py-12 px-4 w-full bg-black">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-semibold mb-10 text-white text-center">
-          Our Services
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-gray-900 p-6 rounded-lg hover:transform hover:scale-105 transition-all duration-300"
-            >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold mb-3 text-white">
-                {service.title}
-              </h3>
-              <p className="text-gray-300">{service.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+const Service = () => (
+  <section id="service-section" className="w-full py-12 px-4 bg-white">
+    {/* SECTION HEADER */}
+    <div className="max-w-3xl mx-auto text-center mb-12">
+      <h2
+        className="text-4xl mb-4"
+        style={{
+          fontFamily: "Cormorant Garamond, serif",
+          fontWeight: 700,
+          color: "#373131",
+        }}
+      >
+        Services
+      </h2>
+      <p
+        className="text-base leading-relaxed"
+        style={{
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 400,
+          color: "#373131",
+        }}
+      >
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry’s standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book.
+      </p>
+    </div>
+
+    {/* SERVICES GRID */}
+    <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      {services.map((svc, idx) => (
+        <motion.div
+          key={idx}
+          className="bg-[#EDE8D7] p-6 rounded-2xl shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: idx * 0.2, duration: 0.6 }}
+          whileHover={{ scale: 1.05 }}
+        >
+          <div className="text-4xl mb-4" style={{ color: "#D56E2D" }}>
+            {svc.icon}
+          </div>
+          <h3
+            className="text-xl mb-2"
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 600,
+              color: "#373131",
+            }}
+          >
+            {svc.title}
+          </h3>
+          <p
+            className="text-sm leading-snug"
+            style={{
+              fontFamily: "Poppins, sans-serif",
+              fontWeight: 400,
+              color: "#373131",
+            }}
+          >
+            {svc.description}
+          </p>
+        </motion.div>
+      ))}
+    </div>
+  </section>
+);
 
 export default Service;
