@@ -57,3 +57,16 @@ button:focus-visible {
   }
   /* No global button background override in light mode */
 }
+
+/* Prevent mobile landscape from becoming desktop */
+@media (max-width: 1024px) {
+  .force-mobile .md\:hidden {
+    display: block !important;
+  }
+  .force-mobile .md\:flex,
+  .force-mobile .md\:block,
+  .force-mobile .md\:grid,
+  .force-mobile .md\:absolute {
+    display: none !important;
+  }
+}

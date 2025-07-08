@@ -1,4 +1,3 @@
-// src/pages/Project/Project.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -55,8 +54,8 @@ export default function Project() {
   };
 
   return (
-    <>
-      {/* Mobile header + dropdown (outside image overlay) */}
+    <div className="force-mobile">
+      {/* Mobile header + dropdown */}
       <div className="md:hidden bg-[#EDE8D7] px-4 pt-6 pb-4">
         <h1
           className="text-3xl font-bold mb-2 text-center"
@@ -106,12 +105,11 @@ export default function Project() {
 
       {/* Main content container */}
       <div className="w-full h-screen relative overflow-hidden bg-[#EDE8D7]">
-        {/* Background image with swipe */}
+        {/* Swipeable Image */}
         <AnimatePresence>
-          <motion.img
+          <motion.div
             key={images[index]}
-            src={images[index]}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -119,9 +117,15 @@ export default function Project() {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={handleDragEnd}
-          />
+          >
+            <img
+              src={images[index]}
+              className="w-full h-full object-contain md:object-cover"
+              alt="project"
+            />
+          </motion.div>
         </AnimatePresence>
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/1" />
 
         {/* Desktop header + thumbnails + controls */}
         <div className="hidden md:absolute md:inset-0 md:flex md:flex-col md:justify-center md:items-center text-white">
@@ -173,6 +177,6 @@ export default function Project() {
           ›
         </button>
       </div>
-    </>
+    </div>
   );
 }
