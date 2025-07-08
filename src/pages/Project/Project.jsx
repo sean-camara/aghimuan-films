@@ -1,3 +1,4 @@
+// src/pages/Project/Project.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -56,14 +57,14 @@ export default function Project() {
   return (
     <div className="force-mobile">
       {/* Mobile header + dropdown */}
-      <div className="md:hidden bg-[#EDE8D7] px-4 pt-6 pb-4">
+      <div className="md:hidden bg-[#EDE8D7] px-4 pt-4 pb-2">
         <h1
-          className="text-3xl font-bold mb-2 text-center"
+          className="text-3xl font-bold text-center"
           style={{ fontFamily: "Cormorant Garamond", color: "#373131" }}
         >
           My Projects
         </h1>
-        <div className="relative max-w-xs mx-auto">
+        <div className="relative max-w-xs mx-auto mt-2">
           <button
             onClick={() => setDropdownOpen((o) => !o)}
             className="w-full py-2 px-4 rounded-full flex justify-between items-center"
@@ -104,12 +105,12 @@ export default function Project() {
       </div>
 
       {/* Main content container */}
-      <div className="w-full h-screen relative overflow-hidden bg-[#EDE8D7]">
-        {/* Swipeable Image */}
+      <div className="w-full relative overflow-hidden bg-[#EDE8D7] min-h-[300px] md:h-[calc(100vh-90px)]">
         <AnimatePresence>
-          <motion.div
+          <motion.img
             key={images[index]}
-            className="absolute inset-0 w-full h-full"
+            src={images[index]}
+            className="absolute inset-0 w-full h-full object-contain md:object-cover"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -117,13 +118,8 @@ export default function Project() {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={handleDragEnd}
-          >
-            <img
-              src={images[index]}
-              className="w-full h-full object-contain md:object-cover"
-              alt="project"
-            />
-          </motion.div>
+            alt="project"
+          />
         </AnimatePresence>
         <div className="absolute inset-0 bg-black/1" />
 
@@ -164,6 +160,7 @@ export default function Project() {
             </div>
           ))}
         </div>
+
         <button
           onClick={prev}
           className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 p-2 rounded-full"
