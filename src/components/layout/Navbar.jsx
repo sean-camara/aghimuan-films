@@ -6,21 +6,33 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
-  // Set active link based on current path
-  const getActiveLink = () => {
+  // Set active link based on current path and active section
+  const getActiveLink = (section) => {
     const path = location.pathname;
-    if (path === "/") return "home";
-    if (path.includes("/project")) return "project";
-    return "";
+
+    // If we're on the project page
+    if (path.includes("/project") && section === "project") {
+      return true;
+    }
+
+    // If we're on the home page, check which section is active
+    if (path === "/") {
+      return section === activeSection;
+    }
+
+    return false;
   };
 
   const handleLinkClick = (link, sectionId) => {
     setMobileMenuOpen(false);
+    setActiveSection(link);
 
     if (
       link === "home" ||
       link === "about" ||
+      link === "equipment" ||
       link === "service" ||
       link === "contact"
     ) {
@@ -71,9 +83,7 @@ const Navbar = () => {
                 handleLinkClick("home", "home-section");
               }}
               className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
-                getActiveLink() === "home"
-                  ? "bg-[#D56E2D]"
-                  : "hover:bg-[#D56E2D]"
+                getActiveLink("home") ? "bg-[#D56E2D]" : "hover:bg-[#D56E2D]"
               }`}
             >
               Home
@@ -84,40 +94,10 @@ const Navbar = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                handleLinkClick("service", "service-section");
-              }}
-              className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
-                getActiveLink() === "service"
-                  ? "bg-[#D56E2D]"
-                  : "hover:bg-[#D56E2D]"
-              }`}
-            >
-              Service
-            </a>
-          </li>
-          <li>
-            <Link
-              to="/project"
-              className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
-                getActiveLink() === "project"
-                  ? "bg-[#D56E2D]"
-                  : "hover:bg-[#D56E2D]"
-              }`}
-            >
-              Project
-            </Link>
-          </li>
-          <li>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
                 handleLinkClick("about", "about-section");
               }}
               className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
-                getActiveLink() === "about"
-                  ? "bg-[#D56E2D]"
-                  : "hover:bg-[#D56E2D]"
+                getActiveLink("about") ? "bg-[#D56E2D]" : "hover:bg-[#D56E2D]"
               }`}
             >
               About
@@ -128,16 +108,55 @@ const Navbar = () => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                handleLinkClick("contact", "contact-section");
+                handleLinkClick("equipment", "equipment-section");
               }}
               className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
-                getActiveLink() === "contact"
+                getActiveLink("equipment")
                   ? "bg-[#D56E2D]"
                   : "hover:bg-[#D56E2D]"
               }`}
             >
+              Equipment
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("service", "service-section");
+              }}
+              className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
+                getActiveLink("service") ? "bg-[#D56E2D]" : "hover:bg-[#D56E2D]"
+              }`}
+            >
+              Service
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                handleLinkClick("contact", "contact-section");
+              }}
+              className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
+                getActiveLink("contact") ? "bg-[#D56E2D]" : "hover:bg-[#D56E2D]"
+              }`}
+            >
               Contact
             </a>
+          </li>
+          <li>
+            <Link
+              to="/project"
+              className={`text-[#FFF6ED] px-4 py-2 rounded-[14px] transition-all duration-300 ${
+                getActiveLink("project") ? "bg-[#D56E2D]" : "hover:bg-[#D56E2D]"
+              }`}
+              onClick={() => setActiveSection("project")}
+            >
+              Project
+            </Link>
           </li>
         </ul>
 
@@ -152,7 +171,7 @@ const Navbar = () => {
             <svg
               className="w-6 h-6"
               fill="none"
-              stroke="#D56E2D"
+              stroke="#F9F6F1"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -168,7 +187,7 @@ const Navbar = () => {
             <svg
               className="w-6 h-6"
               fill="none"
-              stroke="#D56E2D"
+              stroke="#F9F6F1"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -200,7 +219,7 @@ const Navbar = () => {
                   handleLinkClick("home", "home-section");
                 }}
                 className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
-                  getActiveLink() === "home" ? "bg-[#D56E2D]" : ""
+                  getActiveLink("home") ? "bg-[#D56E2D]" : ""
                 }`}
               >
                 Home
@@ -211,35 +230,10 @@ const Navbar = () => {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
-                  handleLinkClick("service", "service-section");
-                }}
-                className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
-                  getActiveLink() === "service" ? "bg-[#D56E2D]" : ""
-                }`}
-              >
-                Service
-              </a>
-            </li>
-            <li>
-              <Link
-                to="/project"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
-                  getActiveLink() === "project" ? "bg-[#D56E2D]" : ""
-                }`}
-              >
-                Project
-              </Link>
-            </li>
-            <li>
-              <a
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
                   handleLinkClick("about", "about-section");
                 }}
                 className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
-                  getActiveLink() === "about" ? "bg-[#D56E2D]" : ""
+                  getActiveLink("about") ? "bg-[#D56E2D]" : ""
                 }`}
               >
                 About
@@ -250,14 +244,56 @@ const Navbar = () => {
                 href="#"
                 onClick={(e) => {
                   e.preventDefault();
+                  handleLinkClick("equipment", "equipment-section");
+                }}
+                className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
+                  getActiveLink("equipment") ? "bg-[#D56E2D]" : ""
+                }`}
+              >
+                Equipment
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick("service", "service-section");
+                }}
+                className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
+                  getActiveLink("service") ? "bg-[#D56E2D]" : ""
+                }`}
+              >
+                Service
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
                   handleLinkClick("contact", "contact-section");
                 }}
                 className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
-                  getActiveLink() === "contact" ? "bg-[#D56E2D]" : ""
+                  getActiveLink("contact") ? "bg-[#D56E2D]" : ""
                 }`}
               >
                 Contact
               </a>
+            </li>
+            <li>
+              <Link
+                to="/project"
+                className={`text-[#FFF6ED] text-xl px-6 py-2 rounded-[14px] transition-all duration-300 ${
+                  getActiveLink("project") ? "bg-[#D56E2D]" : ""
+                }`}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setActiveSection("project");
+                }}
+              >
+                Project
+              </Link>
             </li>
           </ul>
         </div>

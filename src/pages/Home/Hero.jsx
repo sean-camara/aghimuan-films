@@ -1,3 +1,4 @@
+// src/pages/Home/Hero.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../components/common/Button";
@@ -24,28 +25,22 @@ const Hero = () => {
     setCurrentSlide((s) => (s === 0 ? slides.length - 1 : s - 1));
 
   // Handle touch events for mobile swipe
-  const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
+  const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
+  const handleTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
   const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
-      // Swipe left, go to next slide
-      nextSlide();
-    }
+    if (touchStart - touchEnd > 50) nextSlide();
+    if (touchStart - touchEnd < -50) prevSlide();
+  };
 
-    if (touchStart - touchEnd < -50) {
-      // Swipe right, go to previous slide
-      prevSlide();
-    }
+  // Scroll to Contact
+  const handleGetInTouch = () => {
+    const section = document.getElementById("contact-section");
+    if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
+      id="home-section"
       className="relative w-full min-h-[100vh] overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -88,52 +83,42 @@ const Hero = () => {
             technical excellence. I specialize in stunning visual narratives for
             weddings, events, and commercial projects.
           </p>
-          <Button>Get in Touch</Button>
+          {/* Get in Touch Button with hover effect */}
+          <Button
+            onClick={handleGetInTouch}
+            className="transition-transform hover:scale-105"
+          >
+            Get in Touch
+          </Button>
         </div>
 
-        {/* Right side - Phone image (visible on md screens and up) */}
-        <div className="hidden md:block md:w-1/2">
-          <div className="relative mx-auto w-64 h-auto">
-            <div className="bg-black rounded-3xl p-2 shadow-xl">
-              <div className="rounded-2xl overflow-hidden">
-                <img
-                  src="/hero-bg3.jpg"
-                  alt="Event photography on smartphone"
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="absolute top-0 left-0 w-full flex justify-center">
-                <div className="bg-black w-20 h-5 rounded-b-xl"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Rest removed */}
       </div>
 
-      {/* Prev/Next Arrows - Hidden on mobile, visible on md screens and up */}
+      {/* Prev/Next Arrows */}
       <button
         onClick={prevSlide}
-        className="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 z-30 p-2 bg-[#D56E2D] rounded-full text-[#FFF6ED] text-base"
+        className="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 z-30 p-2 bg-transparent border border-[#FFF6ED] rounded-full text-[#FFF6ED] text-base transition-colors hover:bg-[#FFF6ED] hover:text-[#373131]"
         aria-label="Previous slide"
       >
         &#10094;
       </button>
       <button
         onClick={nextSlide}
-        className="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 z-30 p-2 bg-[#D56E2D] rounded-full text-[#FFF6ED] text-base"
+        className="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 z-30 p-2 bg-transparent border border-[#FFF6ED] rounded-full text-[#FFF6ED] text-base transition-colors hover:bg-[#FFF6ED] hover:text-[#373131]"
         aria-label="Next slide"
       >
         &#10095;
       </button>
 
       {/* Indicators */}
-      <div className="absolute bottom-20 sm:bottom-24 md:bottom-28 w-full flex justify-center space-x-3 z-30">
+      <div className="absolute bottom-20 sm:bottom-24 md:bottom-28 w-full flex justify-center space-x-4 z-30">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goToSlide(i)}
-            className={`w-3 h-3 rounded-full ${
-              currentSlide === i ? "bg-[#D56E2D]" : "bg-[#D56E2D] bg-opacity-50"
+            className={`w-4 h-4 rounded-full transition-all duration-300 hover:scale-125 cursor-pointer ${
+              currentSlide === i ? "bg-[#D56E2D]" : "bg-[#FFF6ED] bg-opacity-70"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />
@@ -150,7 +135,7 @@ const Hero = () => {
             Explore my portfolio to see the full range of my creative work
           </p>
           <Link to="/project">
-            <Button className="text-xs sm:text-sm md:text-base py-1 px-3 sm:py-2">
+            <Button className="text-xs sm:text-sm md:text-base py-1 px-3 sm:py-2 transition-transform hover:scale-105">
               View Projects
             </Button>
           </Link>

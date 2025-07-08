@@ -21,7 +21,7 @@ const About = () => {
   console.log("✅ Rendering About");
 
   return (
-    <section id="about" className="bg-gray-100 py-12 px-4">
+    <section id="about-section" className="bg-gray-100 py-12 px-4">
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-8">
         {/* Header */}
         <div className="text-center mb-8">

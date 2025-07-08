@@ -1,4 +1,3 @@
-// src/pages/Home/Contact.jsx
 import React, { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import Button from "../../components/common/Button";
@@ -140,7 +139,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Exp: John Doe"
                   required
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D]"
+                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D] text-[#373131] placeholder:text-[#A0A0A0]"
                   style={{ fontFamily: "Poppins" }}
                 />
               </div>
@@ -162,7 +161,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Exp: johndoe@email.com"
                   required
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D]"
+                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D] text-[#373131] placeholder:text-[#A0A0A0]"
                   style={{ fontFamily: "Poppins" }}
                 />
               </div>
@@ -184,7 +183,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Type the subject"
                   required
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D]"
+                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D] text-[#373131] placeholder:text-[#A0A0A0]"
                   style={{ fontFamily: "Poppins" }}
                 />
               </div>
@@ -206,7 +205,7 @@ const Contact = () => {
                   onChange={handleChange}
                   placeholder="Type your message"
                   required
-                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D]"
+                  className="w-full px-4 py-2 bg-white border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D56E2D] text-[#373131] placeholder:text-[#A0A0A0]"
                   style={{ fontFamily: "Poppins" }}
                 />
               </div>
