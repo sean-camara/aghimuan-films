@@ -57,20 +57,8 @@ export default function Project() {
 
   return (
     <div className="px-6 py-10 bg-[#EDE8D7] min-h-screen">
-      {/* Search Bar */}
-      <div className="max-w-2xl mx-auto mb-6">
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 rounded-lg bg-white border border-[#D56E2D] text-black placeholder-gray-500 focus:outline-none"
-          style={{ fontFamily: "Poppins, system-ui" }}
-        />
-      </div>
-
       {/* Category Navigation - desktop */}
-      <div className="hidden sm:flex flex-wrap justify-center gap-4 mb-8">
+      <div className="hidden sm:flex flex-wrap justify-center gap-4 mt-8 mb-4">
         {categories.map((cat) => (
           <button
             key={cat}
@@ -88,7 +76,7 @@ export default function Project() {
       </div>
 
       {/* Category Dropdown - mobile */}
-      <div className="sm:hidden mb-8">
+      <div className="sm:hidden mt-8 mb-4">
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
@@ -101,6 +89,18 @@ export default function Project() {
             </option>
           ))}
         </select>
+      </div>
+
+      {/* Search Bar (still below categories) */}
+      <div className="max-w-2xl mx-auto mb-8">
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 rounded-lg bg-white border border-[#D56E2D] text-black placeholder-gray-500 focus:outline-none"
+          style={{ fontFamily: "Poppins, system-ui" }}
+        />
       </div>
 
       {/* Masonry Grid */}

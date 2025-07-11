@@ -9,7 +9,7 @@ const Footer = () => {
   return (
     <>
       {/* Desktop View */}
-      <footer className="hidden md:block bg-[#802637] text-white">
+      <footer className="hidden md:block bg-white text-[#373131] border-t border-b border-[#373131]">
         <div className="container mx-auto py-8 px-4 flex flex-col md:flex-row justify-between items-center">
           {/* Logo and title */}
           <div className="flex items-center mb-6 md:mb-0">
@@ -56,13 +56,13 @@ const Footer = () => {
         </div>
 
         {/* Credits */}
-        <div className="bg-[#B9A764] py-4 text-center text-sm">
-          <p>© {currentYear} Aghimuan Films. All rights reserved.</p>
+        <div className="bg-[#D56E2D] py-4 text-center text-sm">
+          <p className="text-white">© {currentYear} Aghimuan Films. All rights reserved.</p>
         </div>
       </footer>
 
       {/* Mobile View (unchanged) */}
-      <footer className="md:hidden bg-[#802637] text-white">
+      <footer className="md:hidden bg-white text-[#373131] border-t border-b border-[#373131]">
         <div className="container mx-auto py-8 px-4 flex flex-col items-center">
           {/* Social icons */}
           <div className="flex space-x-4 mb-6">
@@ -94,8 +94,8 @@ const Footer = () => {
         </div>
 
         {/* Credits */}
-        <div className="bg-[#B9A764] py-4 text-center text-sm">
-          <p>© {currentYear} Aghimuan Films. All rights reserved.</p>
+        <div className="bg-[#D56E2D] py-4 text-center text-sm">
+          <p className="text-white">© {currentYear} Aghimuan Films. All rights reserved.</p>
         </div>
       </footer>
     </>

@@ -41,18 +41,20 @@ const Equipment = () => {
 
         {/* Mobile First: Image on top */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start rounded-lg p-8"
-          style={{ backgroundColor: "rgba(185, 167, 100, 0.26)" }}
-        >
-          {/* Image on top for mobile */}
-          <div className="order-1 md:order-2">
-            <img
-              src="/equipment-image.png"
-              alt="Equipment"
-              className="w-full h-auto rounded-lg border border-gray-400"
-              onError={() => console.log("❌ Equipment image not found!")}
-            />
-          </div>
+  className="
+    grid grid-cols-1 md:grid-cols-2 gap-8 items-start
+    rounded-lg p-8 bg-white shadow-lg
+  "
+>
+  {/* Image on top for mobile */}
+  <div className="order-1 md:order-2">
+    <img
+      src="/equipment-image.png"
+      alt="Equipment"
+      className="w-full h-auto rounded-lg border border-gray-400"
+      onError={() => console.log("❌ Equipment image not found!")}
+    />
+  </div>
 
           {/* Text + Boxes */}
           <div className="space-y-8 order-2 md:order-1">
@@ -63,7 +65,7 @@ const Equipment = () => {
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontWeight: 600,
-                  color: "#D56E2D",
+                  color: "#373131",
                 }}
               >
                 Camera’s
@@ -80,12 +82,12 @@ const Equipment = () => {
                     transition={{ delay: index * 0.1, duration: 0.4 }}
                     viewport={{ once: true }}
                   >
-                    <Icon className="w-5 h-5" style={{ color: "#D56E2D" }} />
+                    <Icon className="w-5 h-5" style={{ color: "#853300" }} />
                     <span
                       className="text-sm md:text-base"
                       style={{
                         fontFamily: "'Poppins', sans-serif",
-                        color: "#D56E2D",
+                        color: "#853300",
                       }}
                     >
                       {name}
@@ -102,7 +104,7 @@ const Equipment = () => {
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontWeight: 600,
-                  color: "#D56E2D",
+                  color: "#373131",
                 }}
               >
                 Editing Software
@@ -119,12 +121,12 @@ const Equipment = () => {
                     transition={{ delay: index * 0.1 + 0.6, duration: 0.4 }}
                     viewport={{ once: true }}
                   >
-                    <Icon className="w-5 h-5" style={{ color: "#D56E2D" }} />
+                    <Icon className="w-5 h-5" style={{ color: "#853300" }} />
                     <span
                       className="text-sm md:text-base"
                       style={{
                         fontFamily: "'Poppins', sans-serif",
-                        color: "#D56E2D",
+                        color: "#853300",
                       }}
                     >
                       {name}

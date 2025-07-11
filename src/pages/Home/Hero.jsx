@@ -38,7 +38,7 @@ const Hero = () => {
   return (
     <section
       id="home-section"
-      className="relative w-full min-h-[100vh] overflow-hidden"
+      className="relative w-full min-h-[100vh] overflow-hidden pt-16"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -86,7 +86,7 @@ const Hero = () => {
               Get in Touch
             </Button>
             <Link to="/project">
-              <Button className="bg-transparent border border-[#FFF6ED] text-[#FFF6ED] py-2 px-6 rounded-full transition-transform hover:bg-[#FFF6ED] hover:text-[#373131]">
+              <Button className="bg-transparent border border-white text-white py-2 px-6 rounded-full transition-transform hover:bg-white hover:text-[#373131]">
                 View Projects
               </Button>
             </Link>
@@ -125,19 +125,15 @@ const Hero = () => {
       </div>
 
       {/* Bottom banner */}
-      <div className="absolute bottom-0 w-full bg-[#FFF6ED] py-4 z-30">
+      <div className="absolute bottom-0 w-full bg-[#FFF6ED] py-2 z-30">
         <div className="container mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
           <p
-            className="text-[#373131] text-sm mb-2"
+            className="text-[#373131] text-base md:text-xl mb-2"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Explore my portfolio to see the full range of my creative work
           </p>
-          <Link to="/project">
-            <Button className="bg-transparent border border-[#373131] text-[#373131] py-2 px-6 rounded-full hover:bg-[#373131] hover:text-white transition-colors">
-              View Projects
-            </Button>
-          </Link>
+          {/* Place your search/input component here */}
         </div>
       </div>
     </section>

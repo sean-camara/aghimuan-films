@@ -79,7 +79,7 @@ const About = () => {
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
                   fontWeight: 600,
-                  color: "#D56E2D",
+                  color: "#373131",
                 }}
               >
                 Skills
@@ -96,12 +96,12 @@ const About = () => {
                     transition={{ delay: index * 0.1, duration: 0.4 }}
                     viewport={{ once: true }}
                   >
-                    <Icon className="w-5 h-5" style={{ color: "#D56E2D" }} />
+                    <Icon className="w-5 h-5" style={{ color: "#853300" }} />
                     <span
                       className="text-sm md:text-base"
                       style={{
                         fontFamily: "'Poppins', sans-serif",
-                        color: "#D56E2D",
+                        color: "#853300",
                       }}
                     >
                       {name}
