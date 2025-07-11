@@ -10,7 +10,6 @@ const Hero = () => {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
-  // Advance slides every 5 seconds
   useEffect(() => {
     const iv = setInterval(() => {
       setCurrentSlide((s) => (s === slides.length - 1 ? 0 : s + 1));
@@ -18,13 +17,12 @@ const Hero = () => {
     return () => clearInterval(iv);
   }, []);
 
-  const goToSlide = (i) => setCurrentSlide(i);
   const nextSlide = () =>
     setCurrentSlide((s) => (s === slides.length - 1 ? 0 : s + 1));
   const prevSlide = () =>
     setCurrentSlide((s) => (s === 0 ? slides.length - 1 : s - 1));
+  const goToSlide = (i) => setCurrentSlide(i);
 
-  // Handle touch events for mobile swipe
   const handleTouchStart = (e) => setTouchStart(e.targetTouches[0].clientX);
   const handleTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
   const handleTouchEnd = () => {
@@ -32,7 +30,6 @@ const Hero = () => {
     if (touchStart - touchEnd < -50) prevSlide();
   };
 
-  // Scroll to Contact
   const handleGetInTouch = () => {
     const section = document.getElementById("contact-section");
     if (section) section.scrollIntoView({ behavior: "smooth" });
@@ -46,7 +43,7 @@ const Hero = () => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Slides */}
+      {/* Background Slides */}
       <div className="absolute inset-0 z-0">
         {slides.map((src, i) => (
           <img
@@ -64,60 +61,62 @@ const Hero = () => {
       <div className="absolute inset-0 bg-black/40 z-10" />
 
       {/* Content */}
-      <div className="relative z-20 flex flex-col md:flex-row h-full justify-start md:justify-center items-start md:items-center container mx-auto px-4 sm:px-6 pt-20 sm:pt-24 md:pt-20 pb-16 md:py-20 max-w-6xl text-[#FFF6ED]">
-        {/* Left side - Text content */}
-        <div className="md:w-1/2 md:pr-8 mt-8 sm:mt-0">
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 py-20 flex flex-col md:flex-row items-center md:items-start h-full">
+        {/* Left side - Text */}
+        <div className="md:w-1/2 text-left text-[#FFF6ED]">
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4"
             style={{ fontFamily: "Cormorant Garamond, serif" }}
           >
             Photographer/
-            <br className="sm:hidden" />
+            <br className="block md:hidden" />
             Videographer
           </h1>
           <p
-            className="mb-4 sm:mb-6 text-xs sm:text-sm md:text-base lg:text-lg max-w-md"
+            className="mb-6 text-sm sm:text-base md:text-lg max-w-lg"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
-            Capturing life's most precious moments with artistic vision and
-            technical excellence. I specialize in stunning visual narratives for
-            weddings, events, and commercial projects.
+            Capturing life&apos;s most precious moments with artistic vision and technical excellence. I specialize in stunning visual narratives for weddings, events, and commercial projects.
           </p>
-          {/* Get in Touch Button with hover effect */}
-          <Button
-            onClick={handleGetInTouch}
-            className="transition-transform hover:scale-105"
-          >
-            Get in Touch
-          </Button>
+          <div className="flex space-x-4">
+            <Button
+              onClick={handleGetInTouch}
+              className="bg-[#D56E2D] text-[#FFF6ED] py-2 px-6 rounded-full transition-transform hover:scale-105"
+            >
+              Get in Touch
+            </Button>
+            <Link to="/project">
+              <Button className="bg-transparent border border-[#FFF6ED] text-[#FFF6ED] py-2 px-6 rounded-full transition-transform hover:bg-[#FFF6ED] hover:text-[#373131]">
+                View Projects
+              </Button>
+            </Link>
+          </div>
         </div>
-
-        {/* Rest removed */}
       </div>
 
       {/* Prev/Next Arrows */}
       <button
         onClick={prevSlide}
-        className="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 z-30 p-2 bg-transparent border border-[#FFF6ED] rounded-full text-[#FFF6ED] text-base transition-colors hover:bg-[#FFF6ED] hover:text-[#373131]"
+        className="hidden md:block absolute left-6 top-1/2 transform -translate-y-1/2 z-30 p-3 bg-transparent border border-[#FFF6ED] rounded-full text-[#FFF6ED] transition-colors hover:bg-[#FFF6ED] hover:text-[#373131]"
         aria-label="Previous slide"
       >
-        &#10094;
+        ‹
       </button>
       <button
         onClick={nextSlide}
-        className="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 z-30 p-2 bg-transparent border border-[#FFF6ED] rounded-full text-[#FFF6ED] text-base transition-colors hover:bg-[#FFF6ED] hover:text-[#373131]"
+        className="hidden md:block absolute right-6 top-1/2 transform -translate-y-1/2 z-30 p-3 bg-transparent border border-[#FFF6ED] rounded-full text-[#FFF6ED] transition-colors hover:bg-[#FFF6ED] hover:text-[#373131]"
         aria-label="Next slide"
       >
-        &#10095;
+        ›
       </button>
 
       {/* Indicators */}
-      <div className="absolute bottom-20 sm:bottom-24 md:bottom-28 w-full flex justify-center space-x-4 z-30">
+      <div className="absolute bottom-20 w-full flex justify-center space-x-4 z-30">
         {slides.map((_, i) => (
           <button
             key={i}
             onClick={() => goToSlide(i)}
-            className={`w-4 h-4 rounded-full transition-all duration-300 hover:scale-125 cursor-pointer ${
+            className={`w-4 h-4 rounded-full transition-all duration-300 ${
               currentSlide === i ? "bg-[#D56E2D]" : "bg-[#FFF6ED] bg-opacity-70"
             }`}
             aria-label={`Go to slide ${i + 1}`}
@@ -126,16 +125,16 @@ const Hero = () => {
       </div>
 
       {/* Bottom banner */}
-      <div className="absolute bottom-0 w-full bg-[#FFF6ED] py-2 sm:py-3 md:py-4 z-30">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
+      <div className="absolute bottom-0 w-full bg-[#FFF6ED] py-4 z-30">
+        <div className="container mx-auto px-4 sm:px-6 text-center flex flex-col items-center">
           <p
-            className="text-[#373131] text-xs sm:text-sm md:text-base mb-1.5 sm:mb-2 md:mb-0 md:inline-block md:mr-6"
+            className="text-[#373131] text-sm mb-2"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Explore my portfolio to see the full range of my creative work
           </p>
           <Link to="/project">
-            <Button className="text-xs sm:text-sm md:text-base py-1 px-3 sm:py-2 transition-transform hover:scale-105">
+            <Button className="bg-transparent border border-[#373131] text-[#373131] py-2 px-6 rounded-full hover:bg-[#373131] hover:text-white transition-colors">
               View Projects
             </Button>
           </Link>

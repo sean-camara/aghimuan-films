@@ -1,179 +1,176 @@
 // src/pages/Project/Project.jsx
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const data = {
-  "Night Clubs": [
-    "/club1.jpg",
-    "/club2.jpg",
-    "/club3.jpg",
-    "/club4.jpg",
-    "/club5.jpg",
-  ],
-  Wedding: [
-    "/wedding.jpg",
-    "/wedding2.jpg",
-    "/wedding3.jpg",
-    "/wedding4.jpg",
-    "/wedding5.jpg",
-  ],
-  Event: [
-    "/event.jpg",
-    "/event1.jpg",
-    "/event2.jpg",
-    "/event3.jpg",
-    "/event4.jpg",
-  ],
-  Films: ["/club1.jpg", "/club2.jpg", "/club3.jpg", "/club4.jpg", "/club5.jpg"],
-  Reels: ["/club1.jpg", "/club2.jpg", "/club3.jpg", "/club4.jpg", "/club5.jpg"],
-  Birthday: [
-    "/club1.jpg",
-    "/club2.jpg",
-    "/club3.jpg",
-    "/club4.jpg",
-    "/club5.jpg",
-  ],
-};
+const data = [
+  { name: "Club One", category: "Night Clubs", url: "/club1.jpg" },
+  { name: "Club Two", category: "Night Clubs", url: "/club2.jpg" },
+  { name: "Club Three", category: "Night Clubs", url: "/club3.jpg" },
+  { name: "Club Four", category: "Night Clubs", url: "/club4.jpg" },
+  { name: "Club Five", category: "Night Clubs", url: "/club5.jpg" },
+  { name: "Wedding Fun", category: "Wedding", url: "/wedding.jpg" },
+  { name: "Wedding Day", category: "Wedding", url: "/wedding2.jpg" },
+  { name: "Wedding Magic", category: "Wedding", url: "/wedding3.jpg" },
+  { name: "Wedding Glam", category: "Wedding", url: "/wedding4.jpg" },
+  { name: "Wedding Lights", category: "Wedding", url: "/wedding5.jpg" },
+  { name: "Event Crowd", category: "Event", url: "/event.jpg" },
+  { name: "Event One", category: "Event", url: "/event1.jpg" },
+  { name: "Event Two", category: "Event", url: "/event2.jpg" },
+  { name: "Event Three", category: "Event", url: "/event3.jpg" },
+  { name: "Event Four", category: "Event", url: "/event4.jpg" },
+  { name: "Film Shot", category: "Films", url: "/club1.jpg" },
+  { name: "Reel Moment", category: "Reels", url: "/club2.jpg" },
+  { name: "Birthday Bash", category: "Birthday", url: "/club3.jpg" },
+];
 
 export default function Project() {
-  const categories = Object.keys(data);
-  const [active, setActive] = useState(categories[0]);
-  const [index, setIndex] = useState(0);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const images = data[active];
+  const categories = useMemo(
+    () => ["All", ...Array.from(new Set(data.map((item) => item.category)))],
+    []
+  );
 
-  const next = () => setIndex((i) => (i + 1) % images.length);
-  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length);
-  const handleDragEnd = (e, info) => {
-    if (info.offset.x < -50) next();
-    else if (info.offset.x > 50) prev();
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [modalImage, setModalImage] = useState(null);
+  const [zoom, setZoom] = useState(1);
+
+  const filteredItems = useMemo(() => {
+    return data.filter((item) => {
+      const matchesCategory =
+        selectedCategory === "All" || item.category === selectedCategory;
+      const matchesSearch = item.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchTerm]);
+
+  const openModal = (imgUrl) => {
+    setModalImage(imgUrl);
+    setZoom(1);
   };
-  const selectCategory = (cat) => {
-    setActive(cat);
-    setIndex(0);
-    setDropdownOpen(false);
+
+  const closeModal = () => {
+    setModalImage(null);
+    setZoom(1);
   };
 
   return (
-    <div className="force-mobile">
-      {/* Mobile header + dropdown */}
-      <div className="md:hidden bg-[#EDE8D7] px-4 pt-4 pb-2">
-        <h1
-          className="text-3xl font-bold text-center"
-          style={{ fontFamily: "Cormorant Garamond", color: "#373131" }}
-        >
-          My Projects
-        </h1>
-        <div className="relative max-w-xs mx-auto mt-2">
-          <button
-            onClick={() => setDropdownOpen((o) => !o)}
-            className="w-full py-2 px-4 rounded-full flex justify-between items-center"
-            style={{
-              backgroundColor: "#D56E2D",
-              color: "#FFF6ED",
-              fontFamily: "Cormorant Garamond",
-            }}
-          >
-            {active}
-            <span className="ml-2">▾</span>
-          </button>
-          {dropdownOpen && (
-            <ul
-              className="absolute left-0 right-0 mt-2 rounded-lg shadow-lg overflow-hidden z-50"
-              style={{
-                backgroundColor: "#EDE8D7",
-                border: "1px solid #622022",
-              }}
-            >
-              {categories.map((cat) => (
-                <li
-                  key={cat}
-                  onClick={() => selectCategory(cat)}
-                  className="px-4 py-2 cursor-pointer"
-                  style={{
-                    fontFamily: "Cormorant Garamond",
-                    backgroundColor: cat === active ? "#D56E2D" : "transparent",
-                    color: cat === active ? "#FFF6ED" : "#373131",
-                  }}
-                >
-                  {cat}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+    <div className="px-6 py-10 bg-[#EDE8D7] min-h-screen">
+      {/* Search Bar */}
+      <div className="max-w-2xl mx-auto mb-6">
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full px-4 py-2 rounded-lg bg-white border border-[#D56E2D] text-black placeholder-gray-500 focus:outline-none"
+          style={{ fontFamily: "Poppins, system-ui" }}
+        />
       </div>
 
-      {/* Main content container */}
-      <div className="w-full relative overflow-hidden bg-[#EDE8D7] min-h-[300px] md:h-[calc(100vh-90px)]">
-        <AnimatePresence>
-          <motion.img
-            key={images[index]}
-            src={images[index]}
-            className="absolute inset-0 w-full h-full object-contain md:object-cover"
+      {/* Category Navigation - desktop */}
+      <div className="hidden sm:flex flex-wrap justify-center gap-4 mb-8">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-5 py-2 rounded-full font-semibold transition-colors duration-200 focus:outline-none ${
+              selectedCategory === cat
+                ? "bg-[#D56E2D] text-white"
+                : "bg-white text-[#373131]"
+            }`}
+            style={{ fontFamily: "Cormorant Garamond, serif" }}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Category Dropdown - mobile */}
+      <div className="sm:hidden mb-8">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full px-4 py-2 rounded-lg bg-white border border-[#D56E2D] focus:outline-none text-[#373131]"
+          style={{ fontFamily: "Cormorant Garamond, serif" }}
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Masonry Grid */}
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        {filteredItems.map((item, idx) => (
+          <motion.div
+            key={`${item.url}-${idx}`}
+            layout
+            whileHover={{ scale: 1.02 }}
+            className="break-inside-avoid rounded-lg overflow-hidden bg-white cursor-pointer"
+            onClick={() => openModal(item.url)}
+          >
+            <img
+              src={item.url}
+              alt={item.name}
+              className="w-full object-cover aspect-[4/3]"
+            />
+            <div className="p-3">
+              <h3
+                className="text-sm font-medium truncate text-[#373131]"
+                style={{ fontFamily: "Poppins, system-ui" }}
+              >
+                {item.name}
+              </h3>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {modalImage && (
+          <motion.div
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragEnd={handleDragEnd}
-            alt="project"
-          />
-        </AnimatePresence>
-        <div className="absolute inset-0 bg-black/1" />
-
-        {/* Desktop header + thumbnails + controls */}
-        <div className="hidden md:absolute md:inset-0 md:flex md:flex-col md:justify-center md:items-center text-white">
-          <h1
-            className="text-5xl font-bold mb-2"
-            style={{ fontFamily: "Cormorant Garamond" }}
+            onClick={closeModal}
           >
-            My Projects
-          </h1>
-          <h2 className="text-3xl" style={{ fontFamily: "Cormorant Garamond" }}>
-            {active}
-          </h2>
-        </div>
-        <div className="hidden md:absolute md:bottom-4 md:w-full md:flex md:justify-center md:space-x-4 md:overflow-x-auto md:px-4">
-          {categories.map((cat) => (
-            <div
-              key={cat}
-              onClick={() => selectCategory(cat)}
-              className={`relative flex-shrink-0 w-24 h-16 border-2 rounded-lg overflow-hidden cursor-pointer ${
-                active === cat ? "border-white" : "border-white/50"
-              }`}
+            <motion.div
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-md p-4 max-w-3xl w-full relative"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
             >
-              <img
-                src={data[cat][0]}
-                alt={cat}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <p
-                  className="text-sm font-medium text-white"
-                  style={{ fontFamily: "Poppins" }}
+              <div className="flex justify-between mb-2">
+                <button
+                  onClick={() => setZoom((z) => Math.max(z - 0.2, 1))}
+                  className="text-black font-bold text-xl"
                 >
-                  {cat}
-                </p>
+                  -
+                </button>
+                <button
+                  onClick={() => setZoom((z) => Math.min(z + 0.2, 3))}
+                  className="text-black font-bold text-xl"
+                >
+                  +
+                </button>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <button
-          onClick={prev}
-          className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 p-2 rounded-full"
-        >
-          ‹
-        </button>
-        <button
-          onClick={next}
-          className="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 p-2 rounded-full"
-        >
-          ›
-        </button>
-      </div>
+              <img
+                src={modalImage}
+                alt="modal"
+                style={{ transform: `scale(${zoom})` }}
+                className="w-full h-auto mx-auto"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
